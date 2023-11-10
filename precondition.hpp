@@ -2,6 +2,8 @@
 #define PRECONDITION_HPP
 
 #include <QDialog>
+#include <QPushButton>
+#include <QTimer>
 
 namespace Ui {
 class Precondition;
@@ -17,8 +19,15 @@ public:
 
     QString getPreconditionName();
 
+private slots:
+    void updateButtonState();
+
 private:
+    void setConnections();
+
     Ui::Precondition *ui;
+
+    QTimer timer_;
 };
 
 #endif // PRECONDITION_HPP
