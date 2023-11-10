@@ -7,6 +7,9 @@ ScenarioEditor::ScenarioEditor(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    timer_.setInterval(1000);
+    timer_.start();
+
     setConnections();
 }
 
@@ -19,6 +22,7 @@ void ScenarioEditor::setConnections()
 {
     connect(ui->addButton, &QPushButton::clicked, this, &ScenarioEditor::addStep);
     connect(ui->removeButton, &QPushButton::clicked, this, &ScenarioEditor::removeStep);
+    connect(&timer_, &QTimer::timeout, this, &ScenarioEditor::updateButtonsState);
 }
 
 void ScenarioEditor::addStep()
@@ -41,4 +45,11 @@ void ScenarioEditor::removeStep()
 QString ScenarioEditor::getScenarioTitle() const
 {
     return ui->titleLineEdit->text();
+}
+
+void ScenarioEditor::updateButtonsState()
+{
+    bool removeStepButtonEnabled = ui->stepsListWidget->count() == 0 || ui->stepsListWidget->selectedItems().empty() ? false : true;
+
+    ui->removeButton->setEnabled(removeStepButtonEnabled);
 }
