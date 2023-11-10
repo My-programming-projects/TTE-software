@@ -64,8 +64,9 @@ void UseCaseEditor::removePrecondition()
 void UseCaseEditor::updateButtonsState()
 {
     bool removePrecButtonEnabled = ui->precListWidget->count() == 0 || ui->precListWidget->selectedItems().empty() ? false : true;
-    bool removeScenarioButtonEnabled = ui->scenarioListWidget->count() == 0 || ui->scenarioListWidget->selectedItems().empty() ? false : true;
+    bool scenarioListButtonsEnabled = ui->scenarioListWidget->count() == 0 || ui->scenarioListWidget->selectedItems().empty() ? false : true;
 
     ui->removePrecButton->setEnabled(removePrecButtonEnabled);
-    ui->removeScenarioButton->setEnabled(removeScenarioButtonEnabled);
+    ui->removeScenarioButton->setEnabled(scenarioListButtonsEnabled);
+    ui->openScenarioButton->setEnabled(scenarioListButtonsEnabled);
 }
