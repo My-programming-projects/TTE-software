@@ -2,6 +2,7 @@
 #define SCENARIOEDITOR_H
 
 #include <QDialog>
+#include <QTimer>
 
 #include "step.hpp"
 
@@ -22,11 +23,14 @@ public:
 private slots:
     void addStep();
     void removeStep();
+    void updateButtonsState();
 
 private:
     void setConnections();
 
     Ui::ScenarioEditor *ui;
+
+    QTimer timer_;
 };
 
 #endif // SCENARIOEDITOR_H

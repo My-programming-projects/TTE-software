@@ -7,6 +7,9 @@ UseCaseEditor::UseCaseEditor(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    timer_.setInterval(1000);
+    timer_.start();
+
     setConnections();
 }
 
@@ -21,6 +24,7 @@ void UseCaseEditor::setConnections()
     connect(ui->removeScenarioButton, &QPushButton::clicked, this, &UseCaseEditor::removeScenario);
     connect(ui->addPrecButton, &QPushButton::clicked, this, &UseCaseEditor::addPrecondition);
     connect(ui->removePrecButton, &QPushButton::clicked, this, &UseCaseEditor::removePrecondition);
+    connect(&timer_, &QTimer::timeout, this, &UseCaseEditor::updateButtonsState);
 }
 
 void UseCaseEditor::addScenario()
@@ -55,4 +59,13 @@ void UseCaseEditor::addPrecondition()
 void UseCaseEditor::removePrecondition()
 {
     qDeleteAll(ui->precListWidget->selectedItems());
+}
+
+void UseCaseEditor::updateButtonsState()
+{
+    bool removePrecButtonEnabled = ui->precListWidget->count() == 0 || ui->precListWidget->selectedItems().empty() ? false : true;
+    bool removeScenarioButtonEnabled = ui->scenarioListWidget->count() == 0 || ui->scenarioListWidget->selectedItems().empty() ? false : true;
+
+    ui->removePrecButton->setEnabled(removePrecButtonEnabled);
+    ui->removeScenarioButton->setEnabled(removeScenarioButtonEnabled);
 }

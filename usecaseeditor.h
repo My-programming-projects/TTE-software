@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QVector>
 #include <QPair>
+#include <QTimer>
 
 #include "scenarioeditor.h"
 #include "precondition.hpp"
@@ -27,6 +28,7 @@ private slots:
     void removeScenario();
     void addPrecondition();
     void removePrecondition();
+    void updateButtonsState();
 
 private:
     void setConnections();
@@ -34,6 +36,8 @@ private:
     QVector<QPair<QLabel, QPushButton>> scenariosDesc_;
 
     Ui::UseCaseEditor *ui;
+
+    QTimer timer_;
 };
 
 #endif // USECASEEDITOR_H
