@@ -7,9 +7,7 @@ Precondition::Precondition(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    timer_.setInterval(1000);
-    timer_.start();
-
+    setButtonState();
     setConnections();
 }
 
@@ -23,14 +21,17 @@ QString Precondition::getPreconditionName()
     return ui->precNameLineEdit->text();
 }
 
-void Precondition::setConnections()
+void Precondition::setButtonState()
 {
-    connect(&timer_, &QTimer::timeout, this, &Precondition::updateButtonState);
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 }
 
-void Precondition::updateButtonState()
+void Precondition::setConnections()
 {
-    bool enabled = ui->precNameLineEdit->text().isEmpty() ? false : true;
+    connect(ui->precNameLineEdit, &QLineEdit::textChanged, this, &Precondition::updateOKButtonState);
+}
 
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(enabled);
+void Precondition::updateOKButtonState()
+{
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(isLineEditNotEmpty(ui->precNameLineEdit));
 }

@@ -31,7 +31,8 @@ HEADERS += \
     technique.hpp \
     tte_app.h \
     usecase.hpp \
-    usecaseeditor.h
+    usecaseeditor.h \
+    utils.hpp
 
 FORMS += \
     editor.ui \
