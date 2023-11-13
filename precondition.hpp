@@ -5,6 +5,9 @@
 #include <QPushButton>
 #include <QTimer>
 
+#include "utils.hpp"
+
+
 namespace Ui {
 class Precondition;
 }
@@ -20,14 +23,13 @@ public:
     QString getPreconditionName();
 
 private slots:
-    void updateButtonState();
+    void updateOKButtonState();
 
 private:
+    void setButtonState();
     void setConnections();
 
     Ui::Precondition *ui;
-
-    QTimer timer_;
 };
 
 #endif // PRECONDITION_HPP
