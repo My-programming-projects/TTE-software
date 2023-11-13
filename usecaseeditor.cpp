@@ -76,15 +76,15 @@ void UseCaseEditor::removePrecondition()
 
 void UseCaseEditor::updateOKButtonState()
 {
-    bool enabled = !(ui->idLineEdit->text().isEmpty()) && !(ui->titleLineEdit->text().isEmpty()) && !(ui->actorsLineEdit->text().isEmpty()) ? true : false;
+    bool enabled = (isLineEditNotEmpty(ui->idLineEdit)) && (isLineEditNotEmpty(ui->titleLineEdit)) && (isLineEditNotEmpty(ui->actorsLineEdit)) ? true : false;
 
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(enabled);
 }
 
 void UseCaseEditor::updateButtonsState()
 {
-    bool removePrecButtonEnabled = ui->precListWidget->count() == 0 || ui->precListWidget->selectedItems().empty() ? false : true;
-    bool scenarioListButtonsEnabled = ui->scenarioListWidget->count() == 0 || ui->scenarioListWidget->selectedItems().empty() ? false : true;
+    bool removePrecButtonEnabled = !(isListWidgetNotEmpty(ui->precListWidget)) || !(isListWidgetItemSelected(ui->precListWidget)) ? false : true;
+    bool scenarioListButtonsEnabled = !(isListWidgetNotEmpty(ui->scenarioListWidget)) || !(isListWidgetItemSelected(ui->scenarioListWidget)) ? false : true;
 
     ui->removePrecButton->setEnabled(removePrecButtonEnabled);
     ui->removeScenarioButton->setEnabled(scenarioListButtonsEnabled);
