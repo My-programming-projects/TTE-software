@@ -2,6 +2,9 @@
 #define STEP_HPP
 
 #include <QDialog>
+#include <QPushButton>
+
+#include "utils.hpp"
 
 namespace Ui {
 class Step;
@@ -17,7 +20,13 @@ public:
 
     QString getStepName() const;
 
+private slots:
+    void updateOKButtonState();
+
 private:
+    void setButtonState();
+    void setConnections();
+
     Ui::Step *ui;
 };
 

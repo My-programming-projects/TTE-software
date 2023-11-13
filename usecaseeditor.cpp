@@ -7,9 +7,10 @@ UseCaseEditor::UseCaseEditor(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    timer_.setInterval(1000);
+    timer_.setInterval(500);
     timer_.start();
 
+    setButtonsState();
     setConnections();
 }
 
@@ -18,12 +19,24 @@ UseCaseEditor::~UseCaseEditor()
     delete ui;
 }
 
+void UseCaseEditor::setButtonsState()
+{
+    ui->removePrecButton->setEnabled(false);
+    ui->removeScenarioButton->setEnabled(false);
+    ui->openScenarioButton->setEnabled(false);
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+}
+
 void UseCaseEditor::setConnections()
 {
+    connect(ui->idLineEdit, &QLineEdit::textChanged, this, &UseCaseEditor::updateOKButtonState);
+    connect(ui->actorsLineEdit, &QLineEdit::textChanged, this, &UseCaseEditor::updateOKButtonState);
+    connect(ui->titleLineEdit, &QLineEdit::textChanged, this, &UseCaseEditor::updateOKButtonState);
     connect(ui->addScenarioButton, &QPushButton::clicked, this, &UseCaseEditor::addScenario);
     connect(ui->removeScenarioButton, &QPushButton::clicked, this, &UseCaseEditor::removeScenario);
     connect(ui->addPrecButton, &QPushButton::clicked, this, &UseCaseEditor::addPrecondition);
     connect(ui->removePrecButton, &QPushButton::clicked, this, &UseCaseEditor::removePrecondition);
+
     connect(&timer_, &QTimer::timeout, this, &UseCaseEditor::updateButtonsState);
 }
 
@@ -59,6 +72,13 @@ void UseCaseEditor::addPrecondition()
 void UseCaseEditor::removePrecondition()
 {
     qDeleteAll(ui->precListWidget->selectedItems());
+}
+
+void UseCaseEditor::updateOKButtonState()
+{
+    bool enabled = !(ui->idLineEdit->text().isEmpty()) && !(ui->titleLineEdit->text().isEmpty()) && !(ui->actorsLineEdit->text().isEmpty()) ? true : false;
+
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(enabled);
 }
 
 void UseCaseEditor::updateButtonsState()

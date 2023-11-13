@@ -7,9 +7,10 @@ ScenarioEditor::ScenarioEditor(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    timer_.setInterval(1000);
+    timer_.setInterval(500);
     timer_.start();
 
+    setButtonStates();
     setConnections();
 }
 
@@ -18,8 +19,15 @@ ScenarioEditor::~ScenarioEditor()
     delete ui;
 }
 
+void ScenarioEditor::setButtonStates()
+{
+    ui->removeButton->setEnabled(false);
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+}
+
 void ScenarioEditor::setConnections()
 {
+    connect(ui->titleLineEdit, &QLineEdit::textChanged, this, &ScenarioEditor::updateOkButtonState);
     connect(ui->addButton, &QPushButton::clicked, this, &ScenarioEditor::addStep);
     connect(ui->removeButton, &QPushButton::clicked, this, &ScenarioEditor::removeStep);
     connect(&timer_, &QTimer::timeout, this, &ScenarioEditor::updateButtonsState);
@@ -47,9 +55,14 @@ QString ScenarioEditor::getScenarioTitle() const
     return ui->titleLineEdit->text();
 }
 
+void ScenarioEditor::updateOkButtonState()
+{
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(isLineEditNotEmpty(ui->titleLineEdit));
+}
+
 void ScenarioEditor::updateButtonsState()
 {
-    bool removeStepButtonEnabled = ui->stepsListWidget->count() == 0 || ui->stepsListWidget->selectedItems().empty() ? false : true;
+    bool enabled = !(isListWidgetNotEmpty(ui->stepsListWidget)) || !(isListWidgetItemSelected(ui->stepsListWidget)) ? false : true;
 
-    ui->removeButton->setEnabled(removeStepButtonEnabled);
+    ui->removeButton->setEnabled(enabled);
 }

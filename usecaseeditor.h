@@ -28,9 +28,11 @@ private slots:
     void removeScenario();
     void addPrecondition();
     void removePrecondition();
+    void updateOKButtonState();
     void updateButtonsState();
 
 private:
+    void setButtonsState();
     void setConnections();
 
     QVector<QPair<QLabel, QPushButton>> scenariosDesc_;

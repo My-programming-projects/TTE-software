@@ -5,6 +5,7 @@
 #include <QTimer>
 
 #include "step.hpp"
+#include "utils.hpp"
 
 namespace Ui {
 class ScenarioEditor;
@@ -23,9 +24,11 @@ public:
 private slots:
     void addStep();
     void removeStep();
+    void updateOkButtonState();
     void updateButtonsState();
 
 private:
+    void setButtonStates();
     void setConnections();
 
     Ui::ScenarioEditor *ui;
