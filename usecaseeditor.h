@@ -10,6 +10,7 @@
 
 #include "scenarioeditor.h"
 #include "precondition.hpp"
+#include "utils.hpp"
 
 namespace Ui {
 class UseCaseEditor;
