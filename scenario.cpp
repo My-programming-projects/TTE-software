@@ -16,27 +16,27 @@ void Scenario::setIsMain(bool newIsMain)
     isMain_ = newIsMain;
 }
 
-std::string Scenario::name() const
+QString Scenario::name() const
 {
-    return isMain_ ? "Main scenario- " + name_ : "Alternative scenario- " + name_;
+    return name_;
 }
 
-void Scenario::setName(const std::string &newName)
+void Scenario::setName(const QString &newName)
 {
     name_ = newName;
 }
 
-std::vector<std::string> Scenario::steps() const
+QStringList Scenario::steps() const
 {
     return steps_;
 }
 
-void Scenario::setSteps(const std::vector<std::string> &newSteps)
+void Scenario::setSteps(const QStringList &newSteps)
 {
     steps_ = newSteps;
 }
 
-void Scenario::addStep(const std::string &step)
+void Scenario::addStep(const QString &step)
 {
     steps_.push_back(step);
 }

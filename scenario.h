@@ -2,8 +2,7 @@
 #ifndef SCENARIO_H
 #define SCENARIO_H
 
-#include <string>
-#include <vector>
+#include <QVector>
 
 
 class Scenario
@@ -15,16 +14,16 @@ public:
 
     bool isMain() const;
     void setIsMain(bool newIsMain);
-    std::string name() const;
-    void setName(const std::string &newName);
-    std::vector<std::string> steps() const;
-    void setSteps(const std::vector<std::string> &newSteps);
-    void addStep(const std::string& step);
+    QString name() const;
+    void setName(const QString &newName);
+    QStringList steps() const;
+    void setSteps(const QStringList &newSteps);
+    void addStep(const QString& step);
 
 private:
     bool isMain_;
-    std::string name_;
-    std::vector<std::string> steps_;
+    QString name_;
+    QStringList steps_;
 };
 
 #endif // SCENARIO_H
