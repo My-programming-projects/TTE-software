@@ -6,67 +6,67 @@ UseCase::UseCase()
 
 }
 
-std::string UseCase::id() const
+QString UseCase::id() const
 {
     return id_;
 }
 
-void UseCase::setId(const std::string &newId)
+void UseCase::setId(const QString &newId)
 {
     id_ = newId;
 }
 
-std::string UseCase::title() const
+QString UseCase::title() const
 {
     return title_;
 }
 
-void UseCase::setTitle(const std::string &newTitle)
+void UseCase::setTitle(const QString &newTitle)
 {
     title_ = newTitle;
 }
 
-std::string UseCase::purpose() const
+QString UseCase::purpose() const
 {
     return purpose_;
 }
 
-void UseCase::setPurpose(const std::string &newPurpose)
+void UseCase::setPurpose(const QString &newPurpose)
 {
     purpose_ = newPurpose;
 }
 
-std::string UseCase::actors() const
+QString UseCase::actors() const
 {
     return actors_;
 }
 
-void UseCase::setActors(const std::string &newActors)
+void UseCase::setActors(const QString &newActors)
 {
     actors_ = newActors;
 }
 
-std::vector<std::string> UseCase::preconditions() const
+QStringList UseCase::preconditions() const
 {
     return preconditions_;
 }
 
-void UseCase::setPreconditions(const std::vector<std::string> &newPreconditions)
+void UseCase::setPreconditions(const QStringList &newPreconditions)
 {
     preconditions_ = newPreconditions;
 }
 
-void UseCase::addPrecondition(const std::string &precondition)
+void UseCase::addPrecondition(const QString &precondition)
 {
     preconditions_.push_back(precondition);
 }
 
-std::vector<Scenario> UseCase::scenarios() const
+QVector<Scenario> UseCase::scenarios() const
 {
     return scenarios_;
 }
 
-void UseCase::setScenarios(const std::vector<Scenario> &newScenarios)
+void UseCase::setScenarios(const QVector<Scenario> &newScenarios)
 {
     scenarios_ = newScenarios;
 }
