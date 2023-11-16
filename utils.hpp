@@ -55,8 +55,8 @@ inline void moveItemDown(QListWidget* listWidget)
 
 inline void updateUpDownButtonsState(QPushButton* upButton, QPushButton* downButton, QListWidget* listWidget)
 {
-    bool upButtonEnabled = listWidget->currentRow() != 0 ? true : false;
-    bool downButtonEnabled = listWidget->currentRow() != listWidget->count() - 1 ? true : false;
+    bool upButtonEnabled = (listWidget->currentRow() != 0) || (listWidget->count() == 0) ? true : false;
+    bool downButtonEnabled = (listWidget->currentRow() != listWidget->count() - 1) || (listWidget->count() == 0) ? true : false;
 
     upButton->setEnabled(upButtonEnabled);
     downButton->setEnabled(downButtonEnabled);
