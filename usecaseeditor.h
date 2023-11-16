@@ -32,8 +32,11 @@ private slots:
     void updateOKButtonState();
     void updateButtonsState();
     void updatePrecUpDownButtonsState();
+    void updateScenarioUpDownButtonsState();
     void movePrecUp();
     void movePrecDown();
+    void moveScenarioUp();
+    void moveScenarioDown();
 
 private:
     void setButtonsState();

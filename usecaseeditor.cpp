@@ -39,9 +39,12 @@ void UseCaseEditor::setConnections()
     connect(ui->removePrecButton, &QPushButton::clicked, this, &UseCaseEditor::removePrecondition);
 
     connect(ui->precListWidget, &QListWidget::itemClicked, this, &UseCaseEditor::updatePrecUpDownButtonsState);
+    connect(ui->scenarioListWidget, &QListWidget::itemClicked, this, &UseCaseEditor::updateScenarioUpDownButtonsState);
 
     connect(ui->precUpButton, &QPushButton::clicked, this, &UseCaseEditor::movePrecUp);
     connect(ui->precDownButton, &QPushButton::clicked, this, &UseCaseEditor::movePrecDown);
+    connect(ui->scenarioUpButton, &QPushButton::clicked, this, &UseCaseEditor::moveScenarioUp);
+    connect(ui->scenarioDownButton, &QPushButton::clicked, this, &UseCaseEditor::moveScenarioDown);
 
     connect(&timer_, &QTimer::timeout, this, &UseCaseEditor::updateButtonsState);
 }
@@ -61,6 +64,7 @@ void UseCaseEditor::addScenario()
 void UseCaseEditor::removeScenario()
 {
     qDeleteAll(ui->scenarioListWidget->selectedItems());
+    updateScenarioUpDownButtonsState();
 }
 
 void UseCaseEditor::addPrecondition()
@@ -78,6 +82,7 @@ void UseCaseEditor::addPrecondition()
 void UseCaseEditor::removePrecondition()
 {
     qDeleteAll(ui->precListWidget->selectedItems());
+    updatePrecUpDownButtonsState();
 }
 
 void UseCaseEditor::updateOKButtonState()
@@ -92,17 +97,22 @@ void UseCaseEditor::updateOKButtonState()
 
 void UseCaseEditor::updateButtonsState()
 {
-    bool removePrecButtonEnabled = !(isListWidgetNotEmpty(ui->precListWidget)) || !(isListWidgetItemSelected(ui->precListWidget)) ? false : true;
-    bool scenarioListButtonsEnabled = !(isListWidgetNotEmpty(ui->scenarioListWidget)) || !(isListWidgetItemSelected(ui->scenarioListWidget)) ? false : true;
+    bool precButtonsEnabled = !(isListWidgetNotEmpty(ui->precListWidget)) || !(isListWidgetItemSelected(ui->precListWidget)) ? false : true;
+    bool scenarioButtonsEnabled = !(isListWidgetNotEmpty(ui->scenarioListWidget)) || !(isListWidgetItemSelected(ui->scenarioListWidget)) ? false : true;
 
-    ui->removePrecButton->setEnabled(removePrecButtonEnabled);
-    ui->removeScenarioButton->setEnabled(scenarioListButtonsEnabled);
-    ui->openScenarioButton->setEnabled(scenarioListButtonsEnabled);
+    ui->removePrecButton->setEnabled(precButtonsEnabled);
+    ui->removeScenarioButton->setEnabled(scenarioButtonsEnabled);
+    ui->openScenarioButton->setEnabled(scenarioButtonsEnabled);
 }
 
 void UseCaseEditor::updatePrecUpDownButtonsState()
 {
     updateUpDownButtonsState(ui->precUpButton, ui->precDownButton, ui->precListWidget);
+}
+
+void UseCaseEditor::updateScenarioUpDownButtonsState()
+{
+    updateUpDownButtonsState(ui->scenarioUpButton, ui->scenarioDownButton, ui->scenarioListWidget);
 }
 
 void UseCaseEditor::movePrecUp()
@@ -117,3 +127,14 @@ void UseCaseEditor::movePrecDown()
     updatePrecUpDownButtonsState();
 }
 
+void UseCaseEditor::moveScenarioUp()
+{
+    moveItemUp(ui->scenarioListWidget);
+    updateScenarioUpDownButtonsState();
+}
+
+void UseCaseEditor::moveScenarioDown()
+{
+    moveItemDown(ui->scenarioListWidget);
+    updateScenarioUpDownButtonsState();
+}
