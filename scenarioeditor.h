@@ -24,8 +24,11 @@ public:
 private slots:
     void addStep();
     void removeStep();
+    void moveStepUp();
+    void moveStepDown();
     void updateOkButtonState();
     void updateButtonsState();
+    void updateStepUpDownButtonsState();
 
 private:
     void setButtonStates();

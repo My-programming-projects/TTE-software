@@ -31,6 +31,10 @@ void ScenarioEditor::setConnections()
     connect(ui->addButton, &QPushButton::clicked, this, &ScenarioEditor::addStep);
     connect(ui->removeButton, &QPushButton::clicked, this, &ScenarioEditor::removeStep);
     connect(&timer_, &QTimer::timeout, this, &ScenarioEditor::updateButtonsState);
+
+    connect(ui->stepsListWidget, &QListWidget::itemClicked, this, &ScenarioEditor::updateStepUpDownButtonsState);
+    connect(ui->stepUpButton, &QPushButton::clicked, this, &ScenarioEditor::moveStepUp);
+    connect(ui->stepDownButton, &QPushButton::clicked, this, &ScenarioEditor::moveStepDown);
 }
 
 void ScenarioEditor::addStep()
@@ -48,6 +52,7 @@ void ScenarioEditor::addStep()
 void ScenarioEditor::removeStep()
 {
     qDeleteAll(ui->stepsListWidget->selectedItems());
+    updateStepUpDownButtonsState();
 }
 
 QString ScenarioEditor::getScenarioTitle() const
@@ -65,4 +70,21 @@ void ScenarioEditor::updateButtonsState()
     bool enabled = !(isListWidgetNotEmpty(ui->stepsListWidget)) || !(isListWidgetItemSelected(ui->stepsListWidget)) ? false : true;
 
     ui->removeButton->setEnabled(enabled);
+}
+
+void ScenarioEditor::updateStepUpDownButtonsState()
+{
+    updateUpDownButtonsState(ui->stepUpButton, ui->stepDownButton, ui->stepsListWidget);
+}
+
+void ScenarioEditor::moveStepUp()
+{
+    moveItemUp(ui->stepsListWidget);
+    updateStepUpDownButtonsState();
+}
+
+void ScenarioEditor::moveStepDown()
+{
+    moveItemDown(ui->stepsListWidget);
+    updateStepUpDownButtonsState();
 }
