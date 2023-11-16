@@ -31,6 +31,9 @@ private slots:
     void removePrecondition();
     void updateOKButtonState();
     void updateButtonsState();
+    void updatePrecUpDownButtonsState();
+    void movePrecUp();
+    void movePrecDown();
 
 private:
     void setButtonsState();
