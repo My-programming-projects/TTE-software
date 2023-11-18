@@ -46,6 +46,8 @@ void ScenarioEditor::addStep()
     if(step->exec() == QDialog::Accepted)
     {
         ui->stepsListWidget->addItem(step->getStepName());
+
+        updateStepUpDownButtonsState();
     }
 }
 

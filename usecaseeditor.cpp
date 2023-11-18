@@ -58,6 +58,8 @@ void UseCaseEditor::addScenario()
     if(scenarioEditor->exec() == QDialog::Accepted)
     {
         ui->scenarioListWidget->addItem(scenarioEditor->getScenarioTitle());
+
+        updateScenarioUpDownButtonsState();
     }
 }
 
@@ -76,6 +78,8 @@ void UseCaseEditor::addPrecondition()
     if(precondition->exec() == QDialog::Accepted)
     {
         ui->precListWidget->addItem(precondition->getPreconditionName());
+
+        updatePrecUpDownButtonsState();
     }
 }
 
