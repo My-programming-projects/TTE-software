@@ -15,6 +15,7 @@ public:
 private slots:
     void adding_preconditions();
     void setting_preconditions_list();
+    void swapping_preconditions();
     void removing_precondition();
 
 private:
@@ -23,22 +24,21 @@ private:
     void verify_data(UseCase useCase, const QStringList &expPreconditions);
 
     const QStringList expected_preconditions_;
-    const int expectedListSize_;
 };
 
 Preconditions_class::Preconditions_class() :
     expected_preconditions_{"The software is running",
                             "The main menu is open",
-                            "The \"Use case\" button is visible"},
-    expectedListSize_{3} { }
+                            "The \"Use case\" button is visible"} { }
 
 Preconditions_class::~Preconditions_class() { }
 
 void Preconditions_class::add_precondition(UseCase &useCase)
 {
-    useCase.addPrecondition(expected_preconditions_.at(0));
-    useCase.addPrecondition(expected_preconditions_.at(1));
-    useCase.addPrecondition(expected_preconditions_.at(2));
+    for(auto &precondition : expected_preconditions_)
+    {
+        useCase.addPrecondition(precondition);
+    }
 }
 
 void Preconditions_class::verify_data(UseCase useCase, const QStringList &expPreconditions)
@@ -72,6 +72,23 @@ void Preconditions_class::setting_preconditions_list()
 
     verify_list_size(useCase, expected_preconditions_);
     verify_data(useCase, expected_preconditions_);
+}
+
+void Preconditions_class::swapping_preconditions()
+{
+    qsizetype i = 1;
+    qsizetype j = 2;
+
+    QStringList temp = expected_preconditions_;
+
+    UseCase useCase;
+    useCase.setPreconditions(expected_preconditions_);
+
+    useCase.swapPreconditions(i, j);
+
+    temp.swapItemsAt(i, j);
+
+    verify_data(useCase, temp);
 }
 
 void Preconditions_class::removing_precondition()

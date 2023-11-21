@@ -15,10 +15,11 @@ public:
 private slots:
     void adding_steps();
     void setting_steps_list();
+    void swapping_steps();
     void removing_steps();
 
 private:
-    void add_step(Scenario &scenario);
+    void add_steps(Scenario &scenario);
     void verify_list_size(const Scenario &scenario, const QStringList &expSteps);
     void verify_data(const Scenario &scenario, const QStringList &expSteps);
 
@@ -30,7 +31,7 @@ Step_class::Step_class() :
 
 Step_class::~Step_class() { }
 
-void Step_class::add_step(Scenario &scenario)
+void Step_class::add_steps(Scenario &scenario)
 {
     for(auto &step : expected_steps_)
     {
@@ -55,7 +56,7 @@ void Step_class::adding_steps()
 {
     Scenario scenario;
 
-    add_step(scenario);
+    add_steps(scenario);
 
     verify_list_size(scenario, expected_steps_);
     verify_data(scenario, expected_steps_);
@@ -68,6 +69,23 @@ void Step_class::setting_steps_list()
 
     verify_list_size(scenario, expected_steps_);
     verify_data(scenario, expected_steps_);
+}
+
+void Step_class::swapping_steps()
+{
+    int i = 0;
+    int j = 2;
+
+    QStringList temp = expected_steps_;
+
+    Scenario scenario;
+
+    scenario.setSteps(expected_steps_);
+    scenario.swapSteps(i, j);
+
+    temp.swapItemsAt(i, j);
+
+    verify_data(scenario, temp);
 }
 
 void Step_class::removing_steps()

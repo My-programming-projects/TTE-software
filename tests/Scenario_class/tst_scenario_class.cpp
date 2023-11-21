@@ -13,9 +13,11 @@ public:
     ~Scenario_class();
 
 private slots:
-    void setting_scenario_with_constructor();
+    void setting_scenario();
     void setting_scenario_name();
+    void setting_scenario_list();
     void adding_scenario();
+    void swapping_scenarios();
     void removing_scenario();
 
 private:
@@ -66,7 +68,7 @@ void Scenario_class::verify_scenarios_data(const UseCase &useCase, const QVector
     }
 }
 
-void Scenario_class::setting_scenario_with_constructor()
+void Scenario_class::setting_scenario()
 {
     const QString name = "Filling the address form";
 
@@ -85,12 +87,39 @@ void Scenario_class::setting_scenario_name()
     verify_scenario_data(scenario, name);
 }
 
+void Scenario_class::setting_scenario_list()
+{
+    UseCase useCase;
+
+    useCase.setScenarios(expected_scenarios_);
+
+    verify_list_size(useCase, expected_scenarios_);
+    verify_scenarios_data(useCase, expected_scenarios_);
+}
+
 void Scenario_class::adding_scenario()
 {
     UseCase useCase;
 
     add_scenarios(useCase);
     verify_list_size(useCase, expected_scenarios_);
+}
+
+void Scenario_class::swapping_scenarios()
+{
+    qsizetype i = 0;
+    qsizetype j = 1;
+
+    QVector<Scenario> temp = expected_scenarios_;
+
+    UseCase useCase;
+
+    useCase.setScenarios(expected_scenarios_);
+    useCase.swapScenarios(i, j);
+
+    temp.swapItemsAt(i, j);
+
+    verify_scenarios_data(useCase, temp);
 }
 
 void Scenario_class::removing_scenario()
