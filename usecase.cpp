@@ -82,3 +82,8 @@ void UseCase::addScenario(Scenario scenario)
     scenarios_.push_back(scenario);
 }
 
+void UseCase::removeScenario(int index)
+{
+    scenarios_.remove(index);
+}
+

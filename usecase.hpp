@@ -27,6 +27,7 @@ public:
     QVector<Scenario> scenarios() const;
     void setScenarios(const QVector<Scenario> &newScenarios);
     void addScenario(Scenario scenario);
+    void removeScenario(int index);
 
 private:
     QString id_;
