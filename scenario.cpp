@@ -6,16 +6,6 @@ Scenario::Scenario() { }
 Scenario::Scenario(const QString &name) :
     name_{name} { }
 
-bool Scenario::isMain() const
-{
-    return isMain_;
-}
-
-void Scenario::setIsMain(bool newIsMain)
-{
-    isMain_ = newIsMain;
-}
-
 QString Scenario::name() const
 {
     return name_;
@@ -39,6 +29,11 @@ void Scenario::setSteps(const QStringList &newSteps)
 void Scenario::addStep(const QString &step)
 {
     steps_.push_back(step);
+}
+
+void Scenario::swapSteps(qsizetype i, qsizetype j)
+{
+    steps_.swapItemsAt(i, j);
 }
 
 void Scenario::removeStep(int index)
