@@ -58,6 +58,11 @@ void UseCase::addPrecondition(const QString &precondition)
     preconditions_.push_back(precondition);
 }
 
+void UseCase::swapPreconditions(qsizetype i, qsizetype j)
+{
+    preconditions_.swapItemsAt(i, j);
+}
+
 void UseCase::removePrecondition(int index)
 {
     preconditions_.remove(index);
@@ -80,6 +85,11 @@ void UseCase::addScenario(Scenario scenario)
     scenario.setIsMain(isMain);
 
     scenarios_.push_back(scenario);
+}
+
+void UseCase::swapScenarios(qsizetype i, qsizetype j)
+{
+    scenarios_.swapItemsAt(i, j);
 }
 
 void UseCase::removeScenario(int index)
