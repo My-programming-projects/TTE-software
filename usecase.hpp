@@ -23,6 +23,7 @@ public:
     QStringList preconditions() const;
     void setPreconditions(const QStringList &newPreconditions);
     void addPrecondition(const QString& precondition);
+    void removePrecondition(int index);
     QVector<Scenario> scenarios() const;
     void setScenarios(const QVector<Scenario> &newScenarios);
     void addScenario(Scenario scenario);

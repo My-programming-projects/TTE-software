@@ -1,10 +1,7 @@
 
 #include "usecase.hpp"
 
-UseCase::UseCase()
-{
-
-}
+UseCase::UseCase() { }
 
 QString UseCase::id() const
 {
@@ -59,6 +56,11 @@ void UseCase::setPreconditions(const QStringList &newPreconditions)
 void UseCase::addPrecondition(const QString &precondition)
 {
     preconditions_.push_back(precondition);
+}
+
+void UseCase::removePrecondition(int index)
+{
+    preconditions_.remove(index);
 }
 
 QVector<Scenario> UseCase::scenarios() const
