@@ -9,8 +9,7 @@ class Scenario
 {
 public:
     Scenario();
-
-
+    Scenario(const QString &name);
 
     bool isMain() const;
     void setIsMain(bool newIsMain);
@@ -19,6 +18,7 @@ public:
     QStringList steps() const;
     void setSteps(const QStringList &newSteps);
     void addStep(const QString& step);
+    void removeStep(int index);
 
 private:
     bool isMain_;

@@ -1,10 +1,10 @@
 
 #include "scenario.h"
 
-Scenario::Scenario()
-{
+Scenario::Scenario() { }
 
-}
+Scenario::Scenario(const QString &name) :
+    name_{name} { }
 
 bool Scenario::isMain() const
 {
@@ -39,4 +39,9 @@ void Scenario::setSteps(const QStringList &newSteps)
 void Scenario::addStep(const QString &step)
 {
     steps_.push_back(step);
+}
+
+void Scenario::removeStep(int index)
+{
+    steps_.remove(index);
 }
