@@ -62,4 +62,27 @@ inline void updateUpDownButtonsState(QPushButton* upButton, QPushButton* downBut
     downButton->setEnabled(downButtonEnabled);
 }
 
+/////////////////////////////////////////////////////////////
+
+inline QStringList itemsToList(const QListWidget* listWidget)
+{
+    QStringList list;
+
+    for(int i = 0; i < listWidget->count(); ++i)
+    {
+        list.push_back(listWidget->item(i)->text());
+    }
+
+    return list;
+}
+
+/////////////////////////////////////////////////////////////
+
+inline int getSelectedItemIndex(QListWidget* listWidget)
+{
+    QListWidgetItem* selectedItem = listWidget->selectedItems().first();
+
+    return listWidget->row(selectedItem);
+}
+
 #endif // UTILS_HPP
