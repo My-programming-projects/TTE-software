@@ -80,10 +80,6 @@ void UseCase::setScenarios(const QVector<Scenario> &newScenarios)
 
 void UseCase::addScenario(Scenario scenario)
 {
-    bool isMain = scenarios_.empty() ? true : false;
-
-    scenario.setIsMain(isMain);
-
     scenarios_.push_back(scenario);
 }
 
