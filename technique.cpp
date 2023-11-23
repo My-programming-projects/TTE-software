@@ -4,10 +4,15 @@
 Technique::Technique() :
     name_{} { }
 
-Technique::Technique(const std::string& name) :
+Technique::Technique(const QString& name) :
     name_{name} { }
 
-const std::string Technique::getName()
+void Technique::setName(const QString &name)
+{
+    name_ = name;
+}
+
+const QString Technique::getName()
 {
     return name_;
 }

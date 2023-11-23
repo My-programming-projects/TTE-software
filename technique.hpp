@@ -2,19 +2,20 @@
 #ifndef TECHNIQUE_HPP
 #define TECHNIQUE_HPP
 
-#include <string>
+#include <QString>
 
 
 class Technique
 {
 public:
     Technique();
-    Technique(const std::string& name);
+    Technique(const QString &name);
 
-    const std::string getName();
+    void setName(const QString& name);
+    const QString getName();
 
 private:
-    std::string name_;
+    QString name_;
 };
 
 #endif // TECHNIQUE_HPP
