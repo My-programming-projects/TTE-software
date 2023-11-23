@@ -35,6 +35,8 @@ void ScenarioEditor::setConnections()
     connect(ui->stepsListWidget, &QListWidget::itemClicked, this, &ScenarioEditor::updateStepUpDownButtonsState);
     connect(ui->stepUpButton, &QPushButton::clicked, this, &ScenarioEditor::moveStepUp);
     connect(ui->stepDownButton, &QPushButton::clicked, this, &ScenarioEditor::moveStepDown);
+
+    connect(ui->buttonBox->button(QDialogButtonBox::Ok), &QPushButton::clicked, this, &ScenarioEditor::save);
 }
 
 void ScenarioEditor::addStep()
@@ -45,8 +47,7 @@ void ScenarioEditor::addStep()
 
     if(step->exec() == QDialog::Accepted)
     {
-        ui->stepsListWidget->addItem(step->getStepName());
-
+        ui->stepsListWidget->addItem(step->getStepName());        
         updateStepUpDownButtonsState();
     }
 }
@@ -89,4 +90,17 @@ void ScenarioEditor::moveStepDown()
 {
     moveItemDown(ui->stepsListWidget);
     updateStepUpDownButtonsState();
+}
+
+void ScenarioEditor::save()
+{
+    QStringList steps = itemsToList(ui->stepsListWidget);
+
+    scenario_.setName(ui->titleLineEdit->text());
+    scenario_.setSteps(steps);
+}
+
+Scenario ScenarioEditor::scenario() const noexcept
+{
+    return scenario_;
 }

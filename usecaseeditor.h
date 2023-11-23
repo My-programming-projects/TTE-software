@@ -4,11 +4,13 @@
 #include <QDialog>
 #include <QLabel>
 #include <QPushButton>
+#include <QList>
 #include <QVector>
 #include <QPair>
 #include <QTimer>
 
 #include "scenarioeditor.h"
+#include "usecase.hpp"
 #include "precondition.hpp"
 #include "utils.hpp"
 
@@ -24,6 +26,8 @@ public:
     explicit UseCaseEditor(QWidget *parent = nullptr);
     ~UseCaseEditor();
 
+    UseCase useCase() const noexcept;
+
 private slots:
     void addScenario();
     void removeScenario();
@@ -38,6 +42,8 @@ private slots:
     void moveScenarioUp();
     void moveScenarioDown();
 
+    void save();
+
 private:
     void setButtonsState();
     void setConnections();
@@ -47,6 +53,9 @@ private:
     Ui::UseCaseEditor *ui;
 
     QTimer timer_;
+
+    UseCase useCase_;
+    QVector<Scenario> scenarios_;
 };
 
 #endif // USECASEEDITOR_H

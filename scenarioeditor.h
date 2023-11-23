@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QTimer>
 
+#include "scenario.h"
 #include "step.hpp"
 #include "utils.hpp"
 
@@ -20,6 +21,7 @@ public:
     ~ScenarioEditor();
 
     QString getScenarioTitle() const;
+    Scenario scenario() const noexcept;
 
 private slots:
     void addStep();
@@ -29,6 +31,8 @@ private slots:
     void updateOkButtonState();
     void updateButtonsState();
     void updateStepUpDownButtonsState();
+    void save();
+
 
 private:
     void setButtonStates();
@@ -37,6 +41,8 @@ private:
     Ui::ScenarioEditor *ui;
 
     QTimer timer_;
+
+    Scenario scenario_;
 };
 
 #endif // SCENARIOEDITOR_H

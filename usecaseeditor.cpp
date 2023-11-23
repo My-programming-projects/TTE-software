@@ -46,6 +46,8 @@ void UseCaseEditor::setConnections()
     connect(ui->scenarioUpButton, &QPushButton::clicked, this, &UseCaseEditor::moveScenarioUp);
     connect(ui->scenarioDownButton, &QPushButton::clicked, this, &UseCaseEditor::moveScenarioDown);
 
+    connect(ui->buttonBox->button(QDialogButtonBox::Ok), &QPushButton::clicked, this, &UseCaseEditor::save);
+
     connect(&timer_, &QTimer::timeout, this, &UseCaseEditor::updateButtonsState);
 }
 
@@ -58,6 +60,7 @@ void UseCaseEditor::addScenario()
     if(scenarioEditor->exec() == QDialog::Accepted)
     {
         ui->scenarioListWidget->addItem(scenarioEditor->getScenarioTitle());
+        scenarios_.push_back(scenarioEditor->scenario());
 
         updateScenarioUpDownButtonsState();
     }
@@ -65,6 +68,9 @@ void UseCaseEditor::addScenario()
 
 void UseCaseEditor::removeScenario()
 {
+    int index = getSelectedItemIndex(ui->scenarioListWidget);
+    scenarios_.remove(index);
+
     qDeleteAll(ui->scenarioListWidget->selectedItems());
     updateScenarioUpDownButtonsState();
 }
@@ -134,11 +140,36 @@ void UseCaseEditor::movePrecDown()
 void UseCaseEditor::moveScenarioUp()
 {
     moveItemUp(ui->scenarioListWidget);
+
+    int index = getSelectedItemIndex(ui->scenarioListWidget);
+    scenarios_.swapItemsAt(index, index + 1);
+
     updateScenarioUpDownButtonsState();
 }
 
 void UseCaseEditor::moveScenarioDown()
 {
     moveItemDown(ui->scenarioListWidget);
+
+    int index = getSelectedItemIndex(ui->scenarioListWidget);
+    scenarios_.swapItemsAt(index, index - 1);
+
     updateScenarioUpDownButtonsState();
+}
+
+void UseCaseEditor::save()
+{    
+    QStringList preconditions = itemsToList(ui->precListWidget);
+
+    useCase_.setId(ui->idLineEdit->text());
+    useCase_.setName(ui->titleLineEdit->text());
+    useCase_.setPurpose(ui->purposeLineEdit->text());
+    useCase_.setActors(ui->actorsLineEdit->text());
+    useCase_.setPreconditions(preconditions);
+    useCase_.setScenarios(scenarios_);
+}
+
+UseCase UseCaseEditor::useCase() const noexcept
+{
+    return useCase_;
 }
