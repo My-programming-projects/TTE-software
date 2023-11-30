@@ -7,6 +7,7 @@
 #include "scenario.h"
 #include "step.hpp"
 #include "utils.hpp"
+#include "stepsrelation.hpp"
 
 namespace Ui {
 class ScenarioEditor;
@@ -20,6 +21,7 @@ public:
     explicit ScenarioEditor(QWidget *parent = nullptr);
     ~ScenarioEditor();
 
+    void setFirstScenarioSteps(const QStringList& items);
     QString getScenarioTitle() const;
     Scenario scenario() const noexcept;
 
@@ -31,6 +33,7 @@ private slots:
     void updateOkButtonState();
     void updateButtonsState();
     void updateStepUpDownButtonsState();
+    void openStepsRelation();
     void save();
 
 
@@ -43,6 +46,7 @@ private:
     QTimer timer_;
 
     Scenario scenario_;
+    QStringList firstScenarioSteps_;
 };
 
 #endif // SCENARIOEDITOR_H

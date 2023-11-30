@@ -19,6 +19,11 @@ ScenarioEditor::~ScenarioEditor()
     delete ui;
 }
 
+void ScenarioEditor::setFirstScenarioSteps(const QStringList &items)
+{
+    firstScenarioSteps_ = items;
+}
+
 void ScenarioEditor::setButtonStates()
 {
     ui->removeButton->setEnabled(false);
@@ -35,6 +40,7 @@ void ScenarioEditor::setConnections()
     connect(ui->stepsListWidget, &QListWidget::itemClicked, this, &ScenarioEditor::updateStepUpDownButtonsState);
     connect(ui->stepUpButton, &QPushButton::clicked, this, &ScenarioEditor::moveStepUp);
     connect(ui->stepDownButton, &QPushButton::clicked, this, &ScenarioEditor::moveStepDown);
+    connect(ui->relatedWithButton, &QPushButton::clicked, this, &ScenarioEditor::openStepsRelation);
 
     connect(ui->buttonBox->button(QDialogButtonBox::Ok), &QPushButton::clicked, this, &ScenarioEditor::save);
 }
@@ -98,6 +104,18 @@ void ScenarioEditor::save()
 
     scenario_.setName(ui->titleLineEdit->text());
     scenario_.setSteps(steps);
+}
+
+void ScenarioEditor::openStepsRelation()
+{
+    StepsRelation* stepsRelation = new StepsRelation(this);
+
+    stepsRelation->addSteps(firstScenarioSteps_);
+
+    if(stepsRelation->exec() == QDialog::Accepted)
+    {
+
+    }
 }
 
 Scenario ScenarioEditor::scenario() const noexcept
