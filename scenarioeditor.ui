@@ -64,6 +64,13 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QPushButton" name="relatedWithButton">
+            <property name="text">
+             <string>Related with...</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
        </layout>
