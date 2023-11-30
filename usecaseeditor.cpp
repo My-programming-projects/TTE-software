@@ -55,6 +55,11 @@ void UseCaseEditor::addScenario()
 {
     ScenarioEditor* scenarioEditor = new ScenarioEditor(this);
 
+    if(!scenarios_.isEmpty())
+    {
+        scenarioEditor->setFirstScenarioSteps(scenarios_.at(0).steps());
+    }
+
     scenarioEditor->setModal(true);
 
     if(scenarioEditor->exec() == QDialog::Accepted)
